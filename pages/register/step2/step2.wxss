@@ -1,0 +1,29 @@
+@import "../../../lib/common.wxss";
+.form-box{
+	margin: 0 auto;
+}
+.form-input{
+	width: 576rpx;
+	height: 68rpx;
+	line-height: 68rpx;
+	border-radius: 34rpx;
+	text-align: center;
+	border: 1px solid #BBBBBB;
+}
+.form-item .clear-icon{
+    position: relative; 
+}
+.form-item .clear-icon::after{
+	position: absolute;
+	content: '';
+	top: 10rpx;
+    right: 36rpx;
+    display: block;
+	background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAFVBMVEX////MzMzR0dH39/fv7+/Y2Njl5eV2rLm+AAAAqUlEQVQ4y+2SOw7CQBBDAwFqvELULL86CqIPFNQILgCI+5+BYGWlzCSSc4C4nCdb3p3JRg3T7YHDtw9c8de+C84A9fRgFhsSKkcuSFpZkEcgqTBkjvDh+Bhxd2Fr2kLxdnGxnpUAdjUPphmHCbfbLRhUkgIvU4CmLS2mwhQ0nWjBpkUmoCmjBUtBRJpvIFqLl7rfET+qt5DDbk5vm+2SKnFV4hLt9Y4apB8QwyHeAHAVtAAAAABJRU5ErkJggg==');
+	background-size: 50rpx;
+	width:50rpx;
+    height:50rpx;
+}
+.form-btn{
+	margin-top: 476rpx;
+}

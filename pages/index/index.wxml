@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="">
+    二维码卡片
+  </view>
+  <!--管理员显示-->
+  <view class="">
+    扫码入口
+  </view>
+  <!--通知-->
+  <view class="">
+    通知
+  </view>
+  <!--列表-->
+  <view class="">
+    列表
+  </view>
+</view>

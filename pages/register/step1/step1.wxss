@@ -1,0 +1,54 @@
+@import "../../../lib/common.wxss";
+.page-padding{
+	padding: 0 56rpx;
+}
+.text-area{
+	padding-top: 102rpx;
+	color: #101010;
+	font-family: PingFangSC-bold;
+}
+.text-title{
+	font-size: 40rpx;
+}
+.text-laber{
+	font-size: 60rpx;
+}
+.form-box{
+	margin-top: 52rpx;
+}
+.form-item{
+  	position: relative;
+  	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.form-input{
+	width: 640rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	border-radius: 12rpx;
+	text-align: center;
+	border: 1px solid #D5D5D5;
+	z-index: 1;
+}
+.form-item .input-icon{
+	position: absolute;
+	right: 40rpx;
+	z-index: 2;
+}
+.form-tips{
+	margin-top: 20rpx;
+	color: rgba(153, 153, 153, 1);
+	font-size: 24rpx;
+	text-align: center;
+	line-height: 37rpx;
+}
+.form-tips .role-name{
+	color: #187DF0;
+}
+.form-btn{
+	margin-top: 154rpx;
+}
+.hidden{
+	visibility:hidden
+}

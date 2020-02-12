@@ -1,0 +1,26 @@
+{
+  "pages": [
+   
+    
+		"pages/register/step1/step1",
+    "pages/register/step2/step2",
+    "pages/register/step3/step3",
+
+    "pages/scanResult/scanResult",
+    "pages/logs/logs",
+
+     "pages/auth/auth",
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "人信通",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "mp-toptips": "/components/weui/toptips/toptips"
+  }
+}

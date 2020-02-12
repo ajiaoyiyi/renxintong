@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "注册",
+    "usingComponents": {
+        "mp-icon": "../../../components/weui/icon/icon"
+    }
+}

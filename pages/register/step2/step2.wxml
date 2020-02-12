@@ -1,0 +1,25 @@
+<view class="container">
+	<view class="form-box">
+		<view class="form-item">
+			企业名称 {{registerInfo.company_name}}
+		</view>
+		<view class="form-item">
+			部门 {{baseInfo.department}}
+		</view>
+		<view class="form-item">
+			职位 {{baseInfo.position}}
+		</view>
+		<view class="form-item">
+			工号 {{baseInfo.work_id}}
+		</view>
+		<view class="form-item">
+			姓名 {{baseInfo.name}}
+		</view>
+		<view class="form-item">
+			身份证号 {{baseInfo.user_card_id}}
+		</view>
+		<view class="form-btn">
+			<button class="btn1" disabled="{{btnDisabled}}" loading="{{btnLoading}}" bindtap="bindSubmit">下一步</button>
+		</view>
+	</view>
+</view>

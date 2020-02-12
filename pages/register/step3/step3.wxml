@@ -1,0 +1,43 @@
+<view class="container">
+	<view>
+		<view>
+			{{ registerInfo.name }}
+		</view>
+		<view>
+			身份证:{{ registerInfo.user_card_id }}
+		</view>
+		<view>
+			性别:{{ registerInfo.sex === 0 ? '男' : '女' }}
+		</view>
+		<view>
+			生日:{{ registerInfo.birthday }}
+		</view>
+		<view>
+			年龄:{{ registerInfo.age }}
+		</view>
+		<view>
+			户籍地:{{ registerInfo.native_place }}
+		</view>
+		
+	</view>
+	<view class="form-box">
+		<view class="form-item">
+			手机号 {{ baseInfo.phone }}
+		</view>
+		<view class="form-item">
+			验证码 {{ code }}
+		</view>
+		<view class="form-item">
+			家庭住址 {{ baseInfo.province }}
+		</view>
+		<view class="form-item">
+			详细地址 {{ baseInfo.village }}
+		</view>
+		<view class="form-item">
+			房号 {{ baseInfo.house_number }}
+		</view>
+		<view class="form-btn">
+			<button class="btn1" disabled="{{btnDisabled}}" loading="{{btnLoading}}" bindtap="bindSubmit">下一步</button>
+		</view>
+	</view>
+</view>
