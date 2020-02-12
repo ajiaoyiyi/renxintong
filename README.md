@@ -1,2 +1,0 @@
-# renxintong
-renxintong-miniProject
