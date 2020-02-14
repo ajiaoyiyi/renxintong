@@ -1,17 +1,93 @@
+<wxs module="date">
+  var sub = function (d) {
+    d = d.toString();
+    return d.substring(5);
+  }
+  var time = function (d) {
+    d = d.toString();
+    t = d.split(" ")[1];
+    return t.substring(t,t.length-3);
+  }
+  module.exports = {
+      sub: sub,
+      time: time
+  }
+</wxs>
+
 <view class="container">
-  <view class="">
-    二维码卡片
-  </view>
-  <!--管理员显示-->
-  <view class="">
-    扫码入口
-  </view>
-  <!--通知-->
-  <view class="">
-    通知
-  </view>
-  <!--列表-->
-  <view class="">
-    列表
+  <view class="page-body">
+		<view class="page-padding">
+      <!--二维码卡片-->
+      <view class="card-box">
+				<view class="card-box-warp">
+					<view class="card-box-stap"></view>
+          <view class="flex align-items-center card-box-line2">
+            <view class="card-box-qr">
+              <canvas canvas-id="qrImg" style="width: {{qrcodeWidth}}px; height: {{qrcodeWidth}}px; margin-top: {{qrcodeTop}}px"></canvas>
+              <image class="card-qr-img" style="width: {{qrcodeWidth}}px; height: {{qrcodeWidth}}px; margin-top: {{qrcodeTop}}px" src="{{qrSrc}}" bindtap="previewQRCode"></image>
+              <view class="qr-ref theme-color" bindtap="getPermitQRCode">刷新二维码</view>
+            </view>
+            <view class="card-box-info">
+              <view class="card-info-name name-padding">
+                {{ userInfo.name || '姓名' }}
+                <!--管理员扫码成功 被扫用户显示上下班状态-->
+                <!--<view class="card-info-state">已上班</view>-->
+              </view>
+              <view class="card-info-base card-info-line2">
+                <view class="card-base-item">
+                  <text class="card-base-label">工号</text>
+                  <text class="card-base-del">{{ userInfo.work_id || '暂无' }}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">职位</text>
+                  <text class="card-base-del">{{ userInfo.position || '暂无' }}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">部门</text>
+                  <text class="card-base-del">{{ userInfo.department || '暂无' }}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">联系电话</text>
+                  <text class="card-base-del">{{ userInfo.phone || '暂无' }}</text>
+                </view>
+              </view>	
+            </view>	
+					</view>
+				</view>	
+			</view>
+      <!--如果管理员往上级别显示扫码入口-->
+      <view class="scan-box flex justify-content-between" wx:if="{{userInfo.role_id !== 1}}">
+        <view class="scan-box-btn" data-state="0" bindtap="bindScanQRCode">进门扫码</view>
+        <view class="scan-box-btn" data-state="1" bindtap="bindScanQRCode">出门扫码</view>
+      </view>
+      <!--通知-->
+      <view class="notice-box flex align-items-center">
+        <view class="notice-box-tips">
+          <text class="iconfont icontongzhi2"></text>
+          <text>通知公告</text>
+        </view>
+        <view class="notice-box-line"></view>
+        <view class="notice-box-text text-ellipsis">疫情期间上下班报道政策指示疫情期间上下班报道政策指示</view>
+      </view>
+      <!--列表-->
+      <view class="list-box">
+        <view class="list-box-warp">
+          <view class="list-item flex" wx:for="{{permitListkey}}" wx:key="idx" wx:for-index="idx" wx:for-item="items">
+            <view class="list-item-date">{{date.sub(items)}}</view>
+            <view class="list-item-record">
+              <block wx:for="{{permitList[items]}}" wx:for-index="idx1" wx:for-item="list" wx:key="idx1">
+                <view class="record-li flex align-items-center {{temperature > 37.3 || temperature == 37.3 ? 'list-item-red' : ''}} ">
+                  <view class="record-time"><text class="iconfont iconshijian"></text>{{date.time(list.scan_time)}}</view>
+                  <text class="record-line">|</text>
+                  <view class="record-state">{{marks[list.mark]}}</view>
+                  <text class="record-line">|</text>
+                  <view class="record-temp">{{list.temperature}} ℃</view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

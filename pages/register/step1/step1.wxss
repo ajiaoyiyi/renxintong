@@ -16,25 +16,15 @@
 .form-box{
 	margin-top: 52rpx;
 }
-.form-item{
-  	position: relative;
-  	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.form-input{
-	width: 640rpx;
-	height: 88rpx;
-	line-height: 88rpx;
-	border-radius: 12rpx;
-	text-align: center;
-	border: 1px solid #D5D5D5;
-	z-index: 1;
-}
 .form-item .input-icon{
 	position: absolute;
-	right: 40rpx;
+	right: 20rpx;
 	z-index: 2;
+	padding: 0rpx 20rpx;
+}
+.input-access-code{
+	width: 70%;
+	height: 100%;
 }
 .form-tips{
 	margin-top: 20rpx;

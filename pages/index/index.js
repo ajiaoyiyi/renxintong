@@ -1,19 +1,29 @@
 import { PermitQRCode, PermitList, ScanQRCode } from '../../config/api'
-import { showSuccessToast } from '../../utils/util.js'
+import { showSuccessToast, getStorageSync, formatDate, rpx2px} from '../../utils/util.js'
+import QRCode from '../../utils/weapp-qrcode.js'
+
+const qrcodeWidth = rpx2px(180)
 Page({
   data:{
     userInfo:"",
+    permitListkey: [],
     permitList:[],
     state:"",    //出入扫码标识：1进门 2出门
+    qrSrc:"",
+    marks:{"0":"进门","1":"出门"},
+    qrcodeWidth:qrcodeWidth,
+    qrcodeTop: rpx2px(60)
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var userInfo = wx.getStorageSync('userInfo');
+    var userInfo = getStorageSync('userInfo');
     if(userInfo){
       this.setData({
         userInfo: userInfo
       })
     }
+    this.getPermitQRCode()
+    this.permitList()
   },
   onReady:function(){
     // 页面渲染完成
@@ -35,37 +45,47 @@ Page({
       //获取二维码字符串
       var qrcode = res.qrcode
       //生成二维码
+      new QRCode('qrImg',{
+        text: qrcode,
+        width: qrcodeWidth,
+        height: qrcodeWidth,
+        correctLevel: QRCode.CorrectLevel.L, // 二维码可辨识度
+        callback: (res) => {
+          console.log(res.path)
+          this.setData({
+            qrSrc:res.path
+          })
+          // 接下来就可以直接调用微信小程序的api保存到本地或者将这张二维码直接画在海报上面去，看各自需求
+        }
+        })
     })
   },
   permitList:function(){
     //获取通行证扫描记录
     var that = this;
     PermitList({
-      "user_number":wx.getStorageSync('union_id')
+      "user_id":this.data.userInfo.user_id
     }).then(res => {
+      var permitList = res.history[0];
+      var permitListkey = Object.keys(permitList)  //解决日期为key
+      // permitListkey = permitListkey.map(item => formatDate(item));
       that.setData({
-        permitList: res
+        permitListkey: permitListkey,
+        permitList: permitList
       })
     })
   },
   previewQRCode:function(){
     //点击放大二维码
     wx.previewImage({
-      current: '', // 当前显示图片的http链接
-      urls: [] // 需要预览的图片http链接列表
+      current: this.data.qrSrc, // 当前显示图片的http链接
+      urls: [this.data.qrSrc] // 需要预览的图片http链接列表
     })
   },
-  inScanQRCode: function () {
-    //进门扫码
+  bindScanQRCode: function (e) {
+    //进门\出门扫码
     this.setData({
-      state: 1
-    });
-    this.scanCode()
-  },
-  outScanQRCode: function (e) {
-    //出门扫码
-    this.setData({
-      state: 2
+      state: e.target.dataset.state
     });
     this.scanCode()
   },
@@ -86,6 +106,7 @@ Page({
     })
   },
   getScanQRCodeInfo:function(result){
+    var that = this;
     //扫码成功获取通行证信息
     ScanQRCode({
       "qrcode":result
@@ -97,7 +118,7 @@ Page({
       }else{
       //跳转结果页
         wx.navigateTo({
-          url: '../scanResult/scanResult?state='+that.data.state+'&permit_id='+res.permit_id+'&userInfo='+res.user_info,
+          url: '../scanResult/scanResult?state='+that.data.state+'&permit_id='+res.id+'&userInfo='+JSON.stringify(res.user_info),
         })
       }
     })

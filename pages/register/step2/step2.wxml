@@ -1,25 +1,45 @@
 <view class="container">
-	<view class="form-box">
-		<view class="form-item">
-			企业名称 {{registerInfo.company_name}}
+	<form bindsubmit="bindSubmit">
+		<view class="form-box">
+			<view class="form-cell">
+				<view class="form-label">企业名称</view>
+				<view class="form-input">
+					<input class="input-class input-disb" value="{{registerInfo.company_name}}" disabled="true"/>
+				</view>
+			</view>
+			<view class="form-cell">
+				<view class="form-label">部门</view>
+				<view class="form-input">
+					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindDepartmentInput" placeholder-class="placeholder" value="{{department}}" placeholder="请输入所在部门" name="department"/>
+				</view>
+			</view>
+			<view class="form-cell">
+				<view class="form-label">职位</view>
+				<view class="form-input">
+					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindPositionInput" placeholder-class="placeholder" value="{{position}}" placeholder="请输入职位" name="position"/>
+				</view>
+			</view>
+			<view class="form-cell">
+				<view class="form-label">工号</view>
+				<view class="form-input">
+					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindWorkidInput" placeholder-class="placeholder" value="{{work_id}}" placeholder="请输入工号" name="work_id"/>
+				</view>
+			</view>
+			<view class="form-cell">
+				<view class="form-label">姓名</view>
+				<view class="form-input">
+					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindNameInput" placeholder-class="placeholder" value="{{name}}" placeholder="请输入姓名" name="name"/>
+				</view>
+			</view>
+			<view class="form-cell">
+				<view class="form-label">身份证号</view>
+				<view class="form-input">
+					<input type="idcard" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindUserCardInput" class="input-class" placeholder-class="placeholder" value="{{user_card_id}}" placeholder="请输入身份证号" name="user_card_id"/>
+				</view>
+			</view>
+			<view class="form-btn">
+				<button form-type="submit" class="btn1 {{btnControl.loading ? 'btn1-loading' : ''}}" disabled="{{btnControl.disabled}}" loading="{{btnControl.loading}}">下一步</button>
+			</view>
 		</view>
-		<view class="form-item">
-			部门 {{baseInfo.department}}
-		</view>
-		<view class="form-item">
-			职位 {{baseInfo.position}}
-		</view>
-		<view class="form-item">
-			工号 {{baseInfo.work_id}}
-		</view>
-		<view class="form-item">
-			姓名 {{baseInfo.name}}
-		</view>
-		<view class="form-item">
-			身份证号 {{baseInfo.user_card_id}}
-		</view>
-		<view class="form-btn">
-			<button class="btn1" disabled="{{btnDisabled}}" loading="{{btnLoading}}" bindtap="bindSubmit">下一步</button>
-		</view>
-	</view>
+	</form>
 </view>

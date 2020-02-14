@@ -1,6 +1,6 @@
 <view class="container">
-  <view class="textContainer">
+    <image mode="aspectFit" src="../../images/timg.gif" style="width:280rpx; margin:0 auto;"></image>
     <text class="textStyle">{{text}}</text>
-    <button bindtap="submit">提交</button>
-  </view>
+    <!--<button type="primary" bindtap="getUserInfo" style="margin-top:60rpx">模拟已注册</button>
+    <button bindtap="bindToRegister" style="margin-top:20rpx">模拟未注册</button>-->
 </view>

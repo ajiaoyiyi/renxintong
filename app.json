@@ -1,16 +1,16 @@
 {
   "pages": [
    
+   
+    "pages/auth/auth",
+    "pages/index/index",
     
-		"pages/register/step1/step1",
-    "pages/register/step2/step2",
+    "pages/register/step1/step1",
     "pages/register/step3/step3",
+    "pages/register/step2/step2",
 
     "pages/scanResult/scanResult",
-    "pages/logs/logs",
-
-     "pages/auth/auth",
-    "pages/index/index"
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",

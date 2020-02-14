@@ -1,0 +1,30 @@
+/*按钮*/
+.btn1{
+	width: 640rpx;
+	height: 92rpx;
+	line-height: 92rpx;
+	padding: 0;
+	border-radius: 12rpx;
+	-webkit-border-radius: 12rpx;
+	font-size: 32rpx;
+	color: #FFFFFF;	
+	font-weight: normal;
+	background-color: #187DF0;
+}
+.btn1[disabled]:not([type]) {
+	color: #FFFFFF;	
+	background-color: #CCCCCC;
+	width: 640rpx;
+}
+.btn1-loading[disabled]:not([type]) {
+	color: #FFFFFF;	
+	background-color: rgba(24, 125, 240, .7);
+	width: 640rpx;
+}
+.btn1:not([size='mini']){
+	width: 640rpx;
+}
+.btn1::after{
+	border-radius: 12rpx;
+	border: 0;
+}

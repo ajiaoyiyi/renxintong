@@ -1,5 +1,110 @@
 <view class="container">
-  <view class="textContainer">
-    <text class="textStyle">{{text}}</text>
-  </view>
+	<view class="page-body">
+		<swiper previous-margin="{{previousMargin}}" next-margin="{{nextMargin}}" bindchange="swiperBindchange" class="swiper-box">
+      <!--员工所在企业信息-->
+      <swiper-item>
+        <view class="card-box {{currentSwiperIndex == 0 ? 'zoom-in' : 'zoom-out'}}">
+          <view class="card-box-warp">
+            <view class="card-box-stap"></view>
+            <view class="card-box-info">
+              <view class="card-info-name name-padding">
+                {{ userInfo.name || "姓名" }}
+                <view class="card-info-sub">企业信息</view>
+              </view>
+              <view class="card-info-base card-reasult">
+                <view class="card-base-item">
+                  <text class="card-base-label">工号</text>
+                  <text class="card-base-del">{{ userInfo.work_id  || "暂无"}}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">职位</text>
+                  <text class="card-base-del">{{ userInfo.position  || "暂无" }}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">部门</text>
+                  <text class="card-base-del">{{ userInfo.department  || "暂无" }}</text>
+                </view>
+              </view>	
+            </view>
+          </view>	
+        </view>
+      </swiper-item>
+      <!--员工个人信息-->
+      <swiper-item>
+        <view class="card-box {{currentSwiperIndex == 1 ? 'zoom-in' : 'zoom-out'}}">
+          <view class="card-box-warp">
+            <view class="card-box-stap"></view>
+            <view class="card-box-info">
+              <view class="card-info-name name-padding">
+                {{ userInfo.name || "姓名" }}
+                <view class="card-info-sub">个人信息</view>
+              </view>
+              <view class="card-info-base card-reasult">
+                <view class="card-base-item">
+                  <text class="card-base-label">身份证</text>
+                  <text class="card-base-del">{{ userInfo.user_card_id || "暂无"}}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">性别</text>
+                  <text class="card-base-del">{{ userInfo.sex === 0 ? '男' : '女' }}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">生日</text>
+                  <text class="card-base-del">{{ userInfo.birthday || "暂无" }}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">年龄</text>
+                  <text class="card-base-del">{{ userInfo.age || "暂无"}}</text>
+                </view>
+                <view class="card-base-item">
+                  <!--只显示省市区-->
+                  <text class="card-base-label">户籍地</text>
+                  <text class="card-base-del text-ellipsis">{{ userInfo.native_place || "暂无" }}</text>
+                </view>	
+              </view>	
+            </view>
+          </view>	
+        </view>
+      </swiper-item>
+      <!--员工联系方式信息-->
+      <swiper-item>
+        <view class="card-box {{currentSwiperIndex == 2 ? 'zoom-in' : 'zoom-out'}}">
+          <view class="card-box-warp">
+            <view class="card-box-stap"></view>
+            <view class="card-box-info">
+              <view class="card-info-name name-padding">
+                {{ userInfo.name || "姓名" }}
+                <view class="card-info-sub">联系方式</view>
+              </view>
+              <view class="card-info-base card-reasult">
+                <view class="card-base-item">
+                  <text class="card-base-label">联系电话</text>
+                  <text class="card-base-del">{{ userInfo.phone  || "暂无"}}</text>
+                </view>
+                <view class="card-base-item">
+                  <text class="card-base-label">常住地址</text>
+                  <text class="card-base-del">{{addr}}</text>
+                </view>
+              </view>	
+            </view>
+          </view>	
+        </view>
+      </swiper-item>
+		</swiper>
+		<view class="form-box">
+      <view class="form-tit">今日体温</view>
+      <view class="form-item">
+        <input type="digit" class="form-input-one t-align-l padding-left-40 {{temperature > 37.3 || temperature == 37.3 ? 'warning-color' : ''}}" value="{{temperature}}" bindinput="bindTemperatureInput" placeholder="请输入今日体温"
+        placeholder-class="placeholder" confirm-type="done" />
+        <text class="input-unit"> ℃</text>
+      </view>
+      <view class="form-tips">
+				<view adjust-position="false" class="padding-left-20" wx:if="{{temperature < 37.3}}">上次体温 <text class="theme-color">36.7 ℃</text></view>
+				<view class="warning-color" wx:else>您好，体温检测为异常，确定后系统将自动上报</view>
+			</view>
+			<view class="form-btn">
+				<button class="btn1 {{btnControl.loading ? 'btn1-loading' : ''}}" disabled="{{btnControl.disabled}}" loading="{{btnControl.loading}}" bindtap="bindSubmit">确认</button>
+			</view>
+		</view>
+	</view>
 </view>

@@ -1,9 +1,10 @@
 /**app.wxss**/
 /* reset */
+@import 'lib/iconfont.wxss';
 page {
   background-color: #FFFFFF;
   height: 100%;
-  font-size: 32rpx;
+  font-size: 28rpx;
   line-height: 1.6;
 }
 checkbox, radio{
@@ -22,12 +23,14 @@ scroll-view{
   height: 100%;
 }
 
-/* placeholder */
-.placeholder{
-	color: #CCCCCC;
-	font-size: 28rpx;
-}
 
+/*主题色*/
+.theme-color{
+  color: #187DF0
+}
+.theme-bg-color{
+  background: #187DF0
+}
 /* lib */
 .strong{
   font-weight: bold;
@@ -51,9 +54,10 @@ scroll-view{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 32rpx;
+  font-size: 28rpx;
   font-family: PingFangSC-regular,helvetica,'Heiti SC';
   padding: 0;
+  color: #101010;
 }
 .page-head{
   padding: 60rpx 50rpx 80rpx;

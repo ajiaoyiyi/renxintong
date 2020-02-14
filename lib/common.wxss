@@ -18,6 +18,11 @@
 	background-color: #CCCCCC;
 	width: 640rpx;
 }
+.btn1-loading[disabled]:not([type]) {
+	color: #FFFFFF;	
+	background-color: rgba(24, 125, 240, .7);
+	width: 640rpx;
+}
 .btn1:not([size='mini']){
 	width: 640rpx;
 }
@@ -25,6 +30,142 @@
 	border-radius: 12rpx;
 	border: 0;
 }
-.btn1-loading{
-	background-color: rgba(24, 125, 240, .7);
+
+/*单输入框*/
+.form-item{
+  	position: relative;
+  	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.form-input-one{
+	width: 640rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	border-radius: 12rpx;
+	text-align: center;
+	border: 1px solid #D5D5D5;
+	z-index: 1;
+}
+
+
+/*form cell*/
+.form-cell{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 96rpx;
+	line-height: 40rpx;
+	border-bottom: 1px solid #D5D5D5;
+	font-size: 28rpx;
+	color: rgba(16, 16, 16, 1);
+}
+.form-cell .form-label{
+	text-align: left;
+	padding-left: 24rpx;
+	width: 120rpx;
+	flex: 0 0 120rpx;
+}
+.form-cell .form-input{
+	text-align: right;
+	padding-right: 24rpx;
+	flex: 1;
+	margin-left: 20rpx;
+}
+.form-cell .input-disb{
+	color: #999999;
+}
+
+/* placeholder */
+.placeholder{
+	color: #CCCCCC;
+	font-size: 28rpx;
+}
+
+/*card*/
+.page-padding{
+	padding: 20rpx 26rpx;
+}
+.card-box{
+	width: 700rpx;
+	height: 460rpx;
+	line-height: 40rpx;
+	border-radius: 12rpx;
+	background-color: rgba(24, 125, 240, 1);
+	color: #FFFFFF;
+	margin: 0 auto;
+}
+.card-box-warp{
+	padding: 16rpx 20rpx 20rpx;
+}
+.card-box-stap{
+	width: 140rpx;
+	height: 10rpx;
+	margin: 0 auto;
+	border-radius: 42rpx;
+	background-color: rgba(255, 255, 255, 1);
+	text-align: center;
+}
+.card-box-info{
+	padding: 0rpx 40rpx;
+}
+.card-info-name{
+	color: rgba(255, 255, 255, 1);
+	font-size: 60rpx;
+	text-align: left;
+	line-height: 82rpx;
+	font-family: PingFangSC-bold;
+}
+.card-base-item{
+	display: flex;
+	font-size: 24rpx;
+	height: 46rpx;
+}
+.card-base-label{
+	display: inline-block;
+	width: 100rpx;
+	flex: 0 0 100rpx;
+}
+.card-base-del{
+	display: inline-block;
+}
+
+/*文字溢出*/
+.text-ellipsis{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+}
+.t-align-l{
+	text-align: left
+}
+.padding-left-20{
+  padding-left: 20rpx;
+}
+.padding-left-40{
+  padding-left: 40rpx;
+}
+
+/*flex*/
+.flex{
+	display: flex
+}
+.justify-content-end{
+	justify-content: flex-end;
+}
+.justify-content-between{
+	justify-content: space-between;
+}
+.align-items-center{
+	align-items: center
+}
+
+/*color*/
+.warning-color{
+	color: #EA0000;
+}
+
+.font-size-60{
+	font-size: 60rpx;
 }

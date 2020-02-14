@@ -117,7 +117,29 @@ module.exports = {
 	 * @returns {Object} 发送结果（成功，失败）
 	 */
 	CheckTelVerify: (data) => request({
-		url: '/virus/user/verifyCode',
+		url: '/virus/verify',
+		method: 'POST',
+		data
+	}),
+
+	/**
+	 * 小程序授权登录:post
+	 * @params {Object} data:code
+	 * @returns {Object} 发送结果（成功，失败）
+	 */
+	WechatLogin: (data) => request({
+		url: '/virus/wechat/user/login',
+		method: 'POST',
+		data
+	}),
+
+	/**
+	 * 小程序授权获取用户信息:post
+	 * @params {Object} data:加密信息
+	 * @returns {Object} 发送结果（成功，失败）
+	 */
+	WechatUserInfo: (data) => request({
+		url: '/virus/wechat/user/info',
 		method: 'POST',
 		data
 	})

@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+"usingComponents": {
+    "my-btn": "../../components/submit-button/submit-button"
+  }
 }
