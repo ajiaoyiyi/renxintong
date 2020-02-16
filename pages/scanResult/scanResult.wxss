@@ -41,7 +41,7 @@
   margin-left: 18rpx;
 }
 .card-reasult .card-base-label{
-  margin-right: 280rpx;
+  margin-right: 244rpx;
 }
 .swiper-box{
   padding: 20rpx 0rpx;

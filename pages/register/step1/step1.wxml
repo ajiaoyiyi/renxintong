@@ -6,15 +6,20 @@
 				<view class="text-laber">系统接入码</view>
 			</view>
 			<view class="form-box">
-				<view class="form-item form-input-one">
-					<input adjust-position="false" class="input-access-code {{accessCode.length > 0 ? 'clear-icon' : ''}}" value="{{accessCode}}" bindinput="getCodeInput" placeholder="请输入系统接入码"
+				<view class="form-item form-input-one form-input-step1">
+					<input adjust-position="false" class="input-l t-align-l padding-left-40 {{accessCode.length > 0 ? 'clear-icon' : ''}}" value="{{accessCode}}" bindinput="getCodeInput" placeholder="请输入系统接入码"
 					placeholder-class="placeholder" auto-focus confirm-type="done" />
-					<text class="iconfont iconyoujiantou font-size-20 input-icon check" style="color:{{accessCode.length > 0 ? '#101010' : '#CCCCCC'}}" catchtap="{{accessCode.length > 0 ? 'checkAccessCode' : ''}}"></text>
-					<mp-icon wx-if="{{errorCode}}" class="input-icon clear" type="field" icon="close2" color="#999999" size="{{16}}" catchtap="clearInput"></mp-icon>
+					<view class="flex align-items-center">
+						<block wx:if="{{accessCode.length > 0}}">
+							<mp-icon class="input-icon clear" type="field" size="14" icon="close2" color="#999999" catchtap="clearInput"></mp-icon>
+							<view class="input-line"></view>
+						</block>
+						<text class="input-txt {{accessCode.length > 0 ? 'theme-color' : 'check' }}" bindtap="{{accessCode.length > 0 ? 'checkAccessCode' : ''}}">验证接入码</text>
+					</view>
 				</view>
 			</view>
 			<view class="form-tips {{hiddenTip ? 'hidden' : ''}}">
-				<view>您好，您为{{companyName}}<text class="role-name">{{roleText}}</text></view>
+				<view>您好，您为<text class="role-name">{{companyName}} {{roleText}}</text></view>
 				<view>{{roleLimitText}}</view>
 			</view>
 			<view class="form-btn">

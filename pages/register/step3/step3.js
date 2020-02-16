@@ -1,21 +1,18 @@
-import { UserRegister, SendTelVerify, CheckTelVerify } from '../../../config/api'
-import { showSuccessToast, getStorageSync,showErrorToast } from '../../../utils/util.js'
+import { UserRegister, SendTelVerify, CheckTelVerify, CityDataUrl } from '../../../config/api'
+import { showSuccessToast, getStorageSync,showToast } from '../../../utils/util.js'
 import WxValidate from '../../../utils/wxValidate'
-import { cityData } from '../../../utils/cityData'
 var app = getApp();
 var array;
 Page({
   data: {
-    multiArray: [],
-    multiIndex: [0, 0, 0, 0],
-    chinaData: [],
     code: "",  //验证码
     registerInfo: "",
     getCodeflag: false,
     currentTime: 60,
     currentflag: false,
     citiesIndex: [0, 0, 0, 0],
-    cityArray: "",
+    cityArray: [],
+    selectedAddress: "",
     phone: "", //电话
     house_number: "", //房号
     village: "", //小区
@@ -33,6 +30,7 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     // 页面渲染完成
+    this.initCity()
     var registerInfo = getStorageSync('registerInfo');
     var authid = getStorageSync('authid');
     if(registerInfo){
@@ -41,9 +39,8 @@ Page({
         registerInfo: registerInfo
       })
     }
-
     this.initValidate()
-    this.initCity()
+    
   },
   onReady: function () {
 
@@ -56,12 +53,6 @@ Page({
     // 页面隐藏
 
   },
-  bindRegionChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      region: e.detail.value
-    })
-  },
   onUnload: function () {
     // 页面关闭
 
@@ -71,7 +62,7 @@ Page({
     var phone = this.data.phone;
     var reg = /^1[3456789]\d{9}$/;
     if(!reg.test(phone)){
-      showErrorToast('请输入正确的手机号码')
+      showToast('请输入正确的手机号码')
       return false
     }
     this.setData({
@@ -108,7 +99,7 @@ Page({
     const params1 = e.detail.value
     if (!this.WxValidate.checkForm(params1)) {
         const error = this.WxValidate.errorList[0]
-        showErrorToast(error.msg)
+        showToast(error.msg)
         return false
     }
     //注册提交加载
@@ -222,123 +213,151 @@ Page({
   },
   initCity: function(){
     var that = this;
-    if(wx.getStorageSync("cityData")){
-      array = wx.getStorageSync("cityData");
-      that.initData();
-    } else {
-       array = cityData;
-      wx.setStorageSync("cityData", cityData);
-      that.initData();
-      // wx.request({
-      //   url: '../../../utils/cityData',
-      //   success: res => {
-      //     console.log(res)
-      //     array = res.data;
-      //     wx.setStorageSync("cityData", res.data);
-      //     that.initData();
-      //   }
-      // });
+    array = wx.getStorageSync("cityData");
+    if(array){
+       that.initData();
+    }else{
+      app.initCityData(function(){
+        that.initCity()
+      })
     }
   },
   initData: function(){
-      var chinaData = array;
-      this.data.chinaData = chinaData;
-      var sheng = []; //  设置省数组
-      for (var i = 0; i < chinaData.length; i++) {
-        sheng.push(chinaData[i].name);
-      }
-      this.setData({
-        "multiArray[0]": sheng
-      })
-      this.getCity(); // 得到市
-  },
-    getCity: function () { //  得到市
-      var shengNum = this.data.multiIndex[0];
-      var chinaData = this.data.chinaData;
-      var cityData = chinaData[shengNum].children;
-      var city = [];
-      for (var i = 0; i < cityData.length; i++) {
-        city.push(cityData[i].name)
-      }
-      this.setData({
-        "multiArray[1]": city
-      })
-      this.getXian();
-    },
-    getXian: function (e) { //  得到县
-      var shengNum = this.data.multiIndex[0];
-      var cityNum = this.data.multiIndex[1];
-      var chinaData = this.data.chinaData;
-      var xianData = chinaData[shengNum].children[cityNum].children;
-      var xian = [];
-      for (var i = 0; i < xianData.length; i++) {
-        xian.push(xianData[i].name)
-      }
-      this.setData({
-        "multiArray[2]": xian
-      })
-      this.getZhen();
-    },
-    getZhen: function () { //  得到镇
-      var shengNum = this.data.multiIndex[0];
-      var cityNum = this.data.multiIndex[1];
-      var xianNum = this.data.multiIndex[2];
-      var chinaData = this.data.chinaData;
-      var zhenData = chinaData[shengNum].children[cityNum].children[xianNum].children;
-      var zhen = [];
-      for (var i = 0; i < zhenData.length; i++) {
-        zhen.push(zhenData[i].name)
-      }
-      this.setData({
-        "multiArray[3]": zhen
-      })
-    },
-  
-  //列滚动事件
-  bindMultiPickerColumnChange: function (e) {
-    var move = e.detail;
-    var index = move.column;
-    var value = move.value;
-    if (index == 0) {
-      this.setData({
-        multiIndex: [value, 0, 0, 0]
-      })
-      this.getCity();
+    let cityArray = [[], [], [], []];  //选择器数据
+    
+    for (let i = 0, len = array.length; i < len; i++) {  //存入省
+      cityArray[0].push({
+        name: array[i].name,
+        code: array[i].code
+      });
     }
-    if (index == 1) {
-      this.setData({
-        "multiIndex[1]": value,
-        "multiIndex[2]": 0,
-        "multiIndex[3]": 0
-      })
-      this.getXian();
+    for (let j = 0, len = array[0].children.length; j < len; j++) {  //存入市，默认关联第一个省
+      cityArray[1].push({
+        name: array[0].children[j].name,
+        code: array[0].children[j].code
+      });
     }
-    if (index == 2) {
-      this.setData({
-        "multiIndex[2]": value,
-        "multiIndex[3]": 0,
+    for (let k = 0, len = array[0].children[0].children.length; k < len; k++) {  //存入区，默认关联第一个省的第一个市
+      cityArray[2].push({
+        name: array[0].children[0].children[k].name,
+        code: array[0].children[0].children[k].code
+      });
+    }
 
-      })
-      this.getZhen();
+    for (let s = 0, len = array[0].children[0].children[0].children.length; s < len; s++) {  //存入街道，默认关联第一个省的第一个市的第一个区
+      cityArray[3].push({
+        name: array[0].children[0].children[0].children[s].name,
+        code: array[0].children[0].children[0].children[s].code
+      });
     }
-    if (index == 3) {
-      this.setData({
-        "multiIndex[3]": value
-      })
-      this.getZhen();
-    }
+    this.setData({
+      cityArray: cityArray
+    });
   },
-  //选择器选择事件
+  //列滚动事件
+  bindMultiPickerColumnChange(e){
+    let selectedIndex = e.detail.value;  //滚动到哪一项
+
+    let cityArray = this.data.cityArray;
+    let list1 = []; //存放第二列数据，即市的列
+    let list2 = []; //存放第三列数据，即区的列
+    let list3 = []; //存放第四例数据，即街道的列
+
+    let citiesIndex = [];
+    let provinceIndex = this.data.citiesIndex[0];  //选中的省索引
+    let cityIndex = this.data.citiesIndex[1];  //选中的市索引 
+    let areaIndex = this.data.citiesIndex[2];  //选中的区索引
+
+    switch (e.detail.column) {  //判断滚动的哪一列并做相应的数据处理
+      case 0: //滚动第一列，即省的那一列
+        for(let i = 0,len = array[selectedIndex].children.length;i<len;i++){ //存入省下面的市
+          list1.push({
+            name: array[selectedIndex].children[i].name,
+            code: array[selectedIndex].children[i].code
+          });
+        }
+        for (let j = 0, len = array[selectedIndex].children[0].children.length; j < len; j++) { //存入市下面的区
+          list2.push({
+            name: array[selectedIndex].children[0].children[j].name,
+            code: array[selectedIndex].children[0].children[j].code
+          });
+        }
+        for (let k = 0, len = array[selectedIndex].children[0].children[0].children.length; k < len; k++) {//存入区下面的街道
+          list3.push({
+            name: array[selectedIndex].children[0].children[0].children[k].name,
+            code: array[selectedIndex].children[0].children[0].children[k].code
+          });
+        }
+
+
+        citiesIndex = [selectedIndex, 0, 0, 0];   //记录索引
+        break;
+      case 1:  //滚动第二列，即市的那一列
+        list1 = cityArray[1];  //市那一列数据不需要更新
+
+        for(let i = 0,len = array[provinceIndex].children[selectedIndex].children.length;i<len;i++){//存入市下面的区
+          list2.push({
+            name: array[provinceIndex].children[selectedIndex].children[i].name,
+            code: array[provinceIndex].children[selectedIndex].children[i].code
+          });
+        }
+
+        for (let j = 0, len = array[provinceIndex].children[selectedIndex].children[0].children.length; j < len; j++) {//存入区下面的街道
+          list3.push({
+            name: array[provinceIndex].children[selectedIndex].children[0].children[j].name,
+            code: array[provinceIndex].children[selectedIndex].children[0].children[j].code
+          });
+        }
+        citiesIndex = [provinceIndex, selectedIndex, 0, 0];  //记录索引
+        break;
+      case 2: //滚动第三列，即区的那一列
+        list1 = cityArray[1]; //市和区的数据都需要更新
+        list2 = cityArray[2];
+
+        for (let i = 0, len = array[provinceIndex].children[cityIndex].children[selectedIndex].children.length; i < len; i++) { //存入区下面的街道
+          list3.push({
+            name: array[provinceIndex].children[cityIndex].children[selectedIndex].children[i].name,
+            code: array[provinceIndex].children[cityIndex].children[selectedIndex].children[i].code
+          });
+        }
+    
+        citiesIndex = [provinceIndex, cityIndex, selectedIndex, 0];  //记录索引
+        break;
+      case 3: //滚动第四列，即街道那一列
+        list1 = cityArray[1];
+        list2 = cityArray[2];
+        list3 = cityArray[3];
+
+        citiesIndex = [provinceIndex, cityIndex, areaIndex, selectedIndex];  //记录索引
+        break;
+    }
+    this.setData({
+      [`cityArray[1]`]: list1,//重新赋值第二列数组，即联动了市
+      [`cityArray[2]`]: list2,//重新赋值第三列数组，即联动了区
+      [`cityArray[3]`]: list3,//重新赋值第四列数组，即联动了街道
+      citiesIndex: citiesIndex,//更新索引
+    });
+  },
+   //选择器选择事件
   bindMultiPickerChange(e){
     let cityIndex = e.detail.value;
+    let province = array[cityIndex[0]].name;
+    let city = array[cityIndex[0]].children[cityIndex[1]].name;
+    let district = array[cityIndex[0]].children[cityIndex[1]].children[cityIndex[2]].name;
+    let street = array[cityIndex[0]].children[cityIndex[1]].children[cityIndex[2]].children[cityIndex[3]].name;
     //选择的地址拼接
+    let selectedAddress = province + ' ' +  city + ' ' +  district  + ' ' + street;
+    //选择的区域编码
+    let areaCode = array[cityIndex[0]].children[cityIndex[1]].children[cityIndex[2]].children[cityIndex[3]].code;
     this.setData({
+      selectedAddress:selectedAddress,
       cityInfo:{
-        province: this.data.multiArray[0][this.data.multiIndex[0]], //省
-        city: this.data.multiArray[1][this.data.multiIndex[1]], //市
-        district: this.data.multiArray[2][this.data.multiIndex[2]], //区
-        street: this.data.multiArray[3][this.data.multiIndex[3]], //街道
+        province: province, //省
+        city: city, //市
+        district: district, //区
+        street: street, //街道
       }  
     })
   }
+  
 })

@@ -4,3 +4,6 @@
 .textContainer {
   margin-top: 40rpx;
 }
+.textStyle{
+  text-align: center;
+}

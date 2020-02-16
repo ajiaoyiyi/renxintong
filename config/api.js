@@ -1,5 +1,6 @@
 
 import { request } from '../utils/request.js'
+import { apiBaseURL } from '/setting.js'
 module.exports = {
 	/**
 	 * 用户注册接口:post
@@ -142,5 +143,12 @@ module.exports = {
 		url: '/virus/wechat/user/info',
 		method: 'POST',
 		data
-	})
+	}),
+
+	/**
+	 * 中国行政区域查询接口（此接口不加密）:get
+	 * @params {Object} data:加密信息
+	 * @returns {Object} 发送结果（成功，失败）
+	 */
+	CityDataUrl: apiBaseURL + '/virus/area'
 }

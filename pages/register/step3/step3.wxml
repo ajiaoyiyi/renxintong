@@ -37,10 +37,10 @@
 			<view class="form-box">
 				<view class="form-cell">
 					<view class="form-label">手机号</view>
-					<view class="form-input tel-item flex justify-content-end align-items-center">
-						<label class="tel-flag {{baseInfo.phone ? '' : 'placeholder'}}" for="tel">+86</label>
+					<view class="form-input tel-item flex align-items-center">
+						<label class="tel-flag {{phone ? '' : 'placeholder'}}" for="tel">+86</label>
 						<input type="number" hold-keyboard="true" adjust-position="false" maxlength="11" class="input-class input-tel" value="{{phone}}" id="tel" bindinput="bindTelInput" name="phone"/>
-						<view class="tel-btn {{baseInfo.phone ? 'theme-color' : 'placeholder'}}" bindtap="{{getCodeflag ? 'sendTelVerify' : ''}}">{{ currentflag ? currentTime+'秒倒计时' : '获取验证码'}}</view>
+						<view class="tel-btn {{phone ? 'theme-color' : 'placeholder'}}" bindtap="{{getCodeflag ? 'sendTelVerify' : ''}}">{{ currentflag ? currentTime+'秒倒计时' : '获取验证码'}}</view>
 					</view>
 				</view>
 				<view class="form-cell">
@@ -53,11 +53,9 @@
 				<view class="form-cell">
 					<view class="form-label">家庭住址</view>
 					<view class="form-input">
-						<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-							<view class="picker" style='font-size:24rpx'>
-								{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}} {{multiArray[3][multiIndex[3]]}}
-							</view>
-						</picker>
+						<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{citiesIndex}}" range="{{cityArray}}" range-key="{{'name'}}">
+							<view class="picker {{selectedAddress ? '' : 'placeholder'}}">{{selectedAddress ? selectedAddress : '省/市/区/街道'}}</view>
+						</picker>								
 					</view>
 				</view>
 				<view class="form-cell">

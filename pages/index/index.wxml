@@ -16,9 +16,10 @@
 
 <view class="container">
   <view class="page-body">
+    <view class="body-top"></view>
 		<view class="page-padding">
       <!--二维码卡片-->
-      <view class="card-box">
+      <!--<view class="card-box">
 				<view class="card-box-warp">
 					<view class="card-box-stap"></view>
           <view class="flex align-items-center card-box-line2">
@@ -30,8 +31,6 @@
             <view class="card-box-info">
               <view class="card-info-name name-padding">
                 {{ userInfo.name || '姓名' }}
-                <!--管理员扫码成功 被扫用户显示上下班状态-->
-                <!--<view class="card-info-state">已上班</view>-->
               </view>
               <view class="card-info-base card-info-line2">
                 <view class="card-base-item">
@@ -54,7 +53,22 @@
             </view>	
 					</view>
 				</view>	
-			</view>
+			</view>-->
+      <view class="qr-box">
+        <view class="qr-box-con">
+          <view class="qr-con-info-logo weui-flex align-items-center">
+            <view class="logo-url">
+              <open-data type="userAvatarUrl" style="width:30px; height:30px"></open-data>
+            </view>
+            <text class="name-txt">{{ userInfo.name || '姓名'}}</text>
+            <text class="iconfont {{userInfo.sex === 0 ? 'iconsexm' : 'iconsexw'}}"></text>
+          </view> 
+          <view class="qr-con-img">
+              <canvas canvas-id="qrImg" style="width: {{qrcodeWidth}}px; height: {{qrcodeHeight}}px; margin-top: {{qrcodeTop}}px"></canvas>
+              <view class="qr-ref theme-color" bindtap="getPermitQRCode">刷新二维码</view>
+          </view> 
+        </view>  
+      </view>
       <!--如果管理员往上级别显示扫码入口-->
       <view class="scan-box flex justify-content-between" wx:if="{{userInfo.role_id !== 1}}">
         <view class="scan-box-btn" data-state="0" bindtap="bindScanQRCode">进门扫码</view>
@@ -72,11 +86,12 @@
       <!--列表-->
       <view class="list-box">
         <view class="list-box-warp">
+          <view class="null-txt" wx:if="{{!permitListkey}}">暂无列表</view>
           <view class="list-item flex" wx:for="{{permitListkey}}" wx:key="idx" wx:for-index="idx" wx:for-item="items">
             <view class="list-item-date">{{date.sub(items)}}</view>
             <view class="list-item-record">
               <block wx:for="{{permitList[items]}}" wx:for-index="idx1" wx:for-item="list" wx:key="idx1">
-                <view class="record-li flex align-items-center {{temperature > 37.3 || temperature == 37.3 ? 'list-item-red' : ''}} ">
+                <view class="record-li flex align-items-center {{list.temperature >= 37.3 ? 'list-item-red' : ''}} ">
                   <view class="record-time"><text class="iconfont iconshijian"></text>{{date.time(list.scan_time)}}</view>
                   <text class="record-line">|</text>
                   <view class="record-state">{{marks[list.mark]}}</view>

@@ -45,7 +45,7 @@ function checkPhone(phone){
 function showErrorToast(msg) {
   wx.showToast({
     title: msg,
-    icon: 'none',
+    image: '../../images/error.png',
     duration: 2000
   })
 }
@@ -57,6 +57,8 @@ function showErrorToast(msg) {
 function showSuccessToast(msg) {
   wx.showToast({
     title: msg,
+    icon: 'success',
+    duration: 2000
   })
 }
 
@@ -64,8 +66,12 @@ function showSuccessToast(msg) {
  * 接口失败或错误提示tips
  * @param {Object} msg
  */
-function showTips(msg) {
-  
+function showToast(msg){
+  wx.showToast({
+    title: msg,
+    icon: 'none',
+    duration: 2000
+  })
 }
 
 /**
@@ -120,6 +126,16 @@ const rpx2px = rpx => {
   return rate * rpx
 } 
 
+/**
+ * 收起软键盘
+ */
+const hideKeyboard = () => {
+  wx.hideKeyboard({
+    complete: res => {
+      console.log('hideKeyboard res', res)
+    }
+  })
+}
 
 module.exports = {
   formatTime: formatTime,
@@ -127,10 +143,11 @@ module.exports = {
 	checkPhone: checkPhone,
 	showErrorToast: showErrorToast,
 	showSuccessToast: showSuccessToast,
-  showTips: showTips,
+  showToast: showToast,
   setStorageSync: setStorageSync,
   getStorageSync: getStorageSync,
   removeStorageSync: removeStorageSync,
   clearStorageSync: clearStorageSync,
-  rpx2px: rpx2px
+  rpx2px: rpx2px,
+  hideKeyboard: hideKeyboard
 }

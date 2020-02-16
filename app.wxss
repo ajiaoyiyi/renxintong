@@ -1,6 +1,7 @@
 /**app.wxss**/
 /* reset */
 @import 'lib/iconfont.wxss';
+@import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 page {
   background-color: #FFFFFF;
   height: 100%;

@@ -20,7 +20,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var state = options.state || "";
     var userInfo = options.userInfo && JSON.parse(options.userInfo) || "";
-    var permit_id = options.id || "";
+    var permit_id = options.permit_id || "";
     var addr = ""
     if(userInfo){
       addr = userInfo.province + " " + userInfo.city + " " + userInfo.district + "\n" + userInfo.street + "\n" + userInfo.village + "\n" + userInfo.house_number

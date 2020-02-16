@@ -1,5 +1,5 @@
 import { CheckIdCard } from '../../../config/api'
-import { setStorageSync, getStorageSync, showErrorToast } from '../../../utils/util'
+import { setStorageSync, getStorageSync, showToast,hideKeyboard } from '../../../utils/util'
 import WxValidate from '../../../utils/wxValidate'
 var app = getApp();
 Page({
@@ -47,6 +47,8 @@ Page({
   },
   bindSubmit: function (e) {
     //提交下一步
+    //关闭软键盘
+    // hideKeyboard();
     var that = this;
     var params = {
       name:this.data.name,
@@ -56,7 +58,7 @@ Page({
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params1)) {
         const error = this.WxValidate.errorList[0]
-        showErrorToast(error.msg)
+        showToast(error.msg)
         return false
     }
     //注册加载 d
@@ -77,7 +79,6 @@ Page({
         name: this.data.name,  //姓名
         user_card_id: this.data.user_card_id  //身份证号
       }
-      console.log(baseInfo)
       var registerInfo = Object.assign(this.data.registerInfo,baseInfo,res)
        console.log(registerInfo)
       //缓存注册信息

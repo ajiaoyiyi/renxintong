@@ -22,11 +22,11 @@
 	flex: 0 0 60rpx;
 }
 .input-tel{
-	flex: 0 0 200rpx;
+	flex: 1;
 	text-align: left;
 	margin-left: 20rpx;
 }
 .tel-btn{
-	width: 180rpx;
-	flex: 0 0 180rpx;
+	width: 160rpx;
+	flex: 0 0 160rpx;
 }

@@ -10,31 +10,31 @@
 			<view class="form-cell">
 				<view class="form-label">部门</view>
 				<view class="form-input">
-					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindDepartmentInput" placeholder-class="placeholder" value="{{department}}" placeholder="请输入所在部门" name="department"/>
+					<input class="input-class" adjust-position="{{adjustPosition}}" bindinput="bindDepartmentInput" placeholder-class="placeholder" value="{{department}}" placeholder="请输入所在部门" name="department"/>
 				</view>
 			</view>
 			<view class="form-cell">
 				<view class="form-label">职位</view>
 				<view class="form-input">
-					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindPositionInput" placeholder-class="placeholder" value="{{position}}" placeholder="请输入职位" name="position"/>
+					<input class="input-class" adjust-position="{{adjustPosition}}" bindinput="bindPositionInput" placeholder-class="placeholder" value="{{position}}" placeholder="请输入职位" name="position"/>
 				</view>
 			</view>
 			<view class="form-cell">
 				<view class="form-label">工号</view>
 				<view class="form-input">
-					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindWorkidInput" placeholder-class="placeholder" value="{{work_id}}" placeholder="请输入工号" name="work_id"/>
+					<input class="input-class" adjust-position="{{adjustPosition}}" bindinput="bindWorkidInput" placeholder-class="placeholder" value="{{work_id}}" placeholder="请输入工号" name="work_id"/>
 				</view>
 			</view>
 			<view class="form-cell">
 				<view class="form-label">姓名</view>
 				<view class="form-input">
-					<input class="input-class" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindNameInput" placeholder-class="placeholder" value="{{name}}" placeholder="请输入姓名" name="name"/>
+					<input class="input-class" adjust-position="{{adjustPosition}}" bindinput="bindNameInput" placeholder-class="placeholder" value="{{name}}" placeholder="请输入姓名" name="name"/>
 				</view>
 			</view>
 			<view class="form-cell">
 				<view class="form-label">身份证号</view>
 				<view class="form-input">
-					<input type="idcard" hold-keyboard="true" adjust-position="{{adjustPosition}}" bindinput="bindUserCardInput" class="input-class" placeholder-class="placeholder" value="{{user_card_id}}" placeholder="请输入身份证号" name="user_card_id"/>
+					<input type="idcard" adjust-position="{{adjustPosition}}" bindinput="bindUserCardInput" class="input-class" placeholder-class="placeholder" value="{{user_card_id}}" placeholder="请输入身份证号" name="user_card_id"/>
 				</view>
 			</view>
 			<view class="form-btn">

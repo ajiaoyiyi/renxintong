@@ -2,17 +2,19 @@ import { PermitQRCode, PermitList, ScanQRCode } from '../../config/api'
 import { showSuccessToast, getStorageSync, formatDate, rpx2px} from '../../utils/util.js'
 import QRCode from '../../utils/weapp-qrcode.js'
 
-const qrcodeWidth = rpx2px(180)
+const qrcodeWidth = rpx2px(504)
+const qrcodeHeight = rpx2px(516)
 Page({
   data:{
     userInfo:"",
     permitListkey: [],
     permitList:[],
-    state:"",    //出入扫码标识：1进门 2出门
+    state:"",    //出入扫码标识："0":"进门","1":"出门"
     qrSrc:"",
     marks:{"0":"进门","1":"出门"},
     qrcodeWidth:qrcodeWidth,
-    qrcodeTop: rpx2px(60)
+    qrcodeHeight:qrcodeHeight,
+    qrcodeTop: rpx2px(36)
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -48,7 +50,7 @@ Page({
       new QRCode('qrImg',{
         text: qrcode,
         width: qrcodeWidth,
-        height: qrcodeWidth,
+        height: qrcodeHeight,
         correctLevel: QRCode.CorrectLevel.L, // 二维码可辨识度
         callback: (res) => {
           console.log(res.path)

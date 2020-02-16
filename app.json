@@ -1,13 +1,13 @@
 {
   "pages": [
-   
-   
-    "pages/auth/auth",
+
     "pages/index/index",
+    "pages/auth/auth",
     
-    "pages/register/step1/step1",
+
     "pages/register/step3/step3",
     "pages/register/step2/step2",
+    "pages/register/step1/step1",
 
     "pages/scanResult/scanResult",
     "pages/logs/logs"

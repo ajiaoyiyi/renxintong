@@ -1,6 +1,6 @@
 @import "../../lib/common.wxss";
 page{
-  background: #E8E8E8
+    background: #EAEAEA;
 }
 .card-box-qr{
     width: 270rpx;
@@ -30,9 +30,7 @@ page{
 .card-qr-img{
     position: absolute;
 }
-.qr-ref{
-    padding-top: 32rpx;
-}
+
 .card-info-state{
     display: inline-block;
     width: 100rpx;
@@ -100,13 +98,13 @@ page{
  font-size: 26rpx;
 }
 .list-item-date{
-    width: 88rpx;
+    width: 94rpx;
     height: 44rpx;
     line-height: 44rpx;
     border-radius: 40rpx;
     background-color: rgba(242, 242, 242, 1);
     text-align: center;
-    flex: 0 0 88rpx;
+    flex: 0 0 94rpx;
     margin-right: 20rpx;
 }
 .list-item-record{
@@ -139,13 +137,14 @@ page{
     border-radius: 40rpx;
     padding: 0rpx 28rpx;
     margin-bottom: 20rpx;
-    color: #3AA691;
-    background-color: rgba(204, 255, 245, 1);
+    color: #999999;
+    background-color: #EAEAEA;
     margin-right: 20rpx;
+    
 }
 .list-item-red{
-    color: #FF8369;
-    background-color: rgba(255, 221, 214, 1);
+    color:#FF8369;
+    background-color: #FFDDD6;
 }
 .record-line{
     padding: 0rpx 34rpx;
@@ -160,4 +159,57 @@ page{
 }
 .record-time .iconfont{
     margin-right: 10rpx;
+}
+
+.body-top{
+    background-color: #F8D45E;
+    width: 1000rpx;
+    height: 218rpx;
+    left: -125rpx;
+    border-radius:0 0 50% 50%;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+.qr-box{
+    width: 700rpx;
+    height: 780rpx;
+    line-height: 40rpx;
+    border-radius: 32rpx;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(24, 125, 240, 1);
+    text-align: center;
+    margin-top: 66rpx;
+}
+.qr-box-con{
+    padding: 46rpx 100rpx 32rpx;
+}
+.qr-con-info-logo{
+    font-size: 32rpx;
+}
+.logo-url{
+    width: 96rpx;
+    height: 96rpx;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.qr-con-info-logo .iconfont{
+    font-size: 26rpx;
+    margin-left: 10rpx;
+    line-height: 30rpx;
+}
+.name-txt{
+    font-size: 32rpx;
+    color: #101010;
+    font-weight: bold;
+    margin-left: 28rpx;
+}
+.qr-con-img{
+    margin-top: 36rpx;
+}
+.qr-ref{
+    padding-top: 20rpx;
+    line-height: 30rpx;
+    font-size: 24rpx;
 }

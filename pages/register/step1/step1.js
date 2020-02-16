@@ -12,7 +12,6 @@ Page({
     companyName: "",  //公司名称
     roleText: "",    //角色名称
     roleLimitText: "",  //角色权限文字
-    errorCode: false,    //接入码错误
     btnControl:{
       disabled: true,
       loading: false
@@ -21,11 +20,6 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     // 页面渲染完成
-    this.setData({
-      btnControl: {
-          disabled: this.data.errorCode ? false : true,
-        }
-    })
 
   },
   onReady: function () {
@@ -51,25 +45,25 @@ Page({
     AccessCode(params).then(res => {
       //根据角色显示不同的文案：1员工，2管理员，3企业高层
       that.setData({
-       btnControl:{
-          disabled: false,
-          loading: false
-        },
-        hiddenTip: false,
-        companyName: res.company_name,
-        roleText: res.role_name,
-        roleLimitText: res.role_id === 2 ? roleText.admin : res.role_id === 3 ? roleText.topManager : "",
-      })
-      // .catch(error => {
-      //   //接入码错误
-      //   this.setData({
-      //     errorCode:true,
-      //     btnDisabled: true
-        // })
-      // })
-
-      //缓存机构信息
+        btnControl:{
+            disabled: false,
+            loading: false
+          },
+          hiddenTip: false,
+          companyName: res.company_name,
+          roleText: res.role_name,
+          roleLimitText: res.role_id === 2 ? roleText.admin : res.role_id === 3 ? roleText.topManager : "",
+        })
+        //缓存机构信息
       setStorageSync('registerInfo',res)
+    }).catch(error => {
+        //接入码错误
+        this.setData({
+          btnControl:{
+            disabled: true,
+            loading: false
+          }
+        })
     })
   },
   bindSubmit: function () {
@@ -99,13 +93,21 @@ Page({
     var val = e.detail.value;
     this.setData({
       accessCode: val,
-      hiddenTip: true
+      hiddenTip: true,
+      btnControl:{
+        disabled: true,
+        loading: false
+      }
     });
   },
   clearInput: function (e) {
 		this.setData({
 			accessCode: '',
-			btnDisabled: true
+			btnDisabled: true,
+      btnControl:{
+        disabled: true,
+        loading: false
+      }
 		});
   }
 })
